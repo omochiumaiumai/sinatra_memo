@@ -22,3 +22,7 @@ sinatraを使ったメモアプリケーションです。
 4. コマンドを実行
 
 `bundle exec ruby app.rb`
+
+5. アクセス
+
+http://localhost:4567/ にアクセス
