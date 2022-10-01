@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="/css/index.css">
+
+<button onclick="location.href = '/new' ">追加</button>
+<div id="list">
+<% @json_file.each do |hash| %>
+  <li><a href="memo/<%= hash["id"] %>"><%= hash["title"] %></a></li>
+<% end %>
+</div>

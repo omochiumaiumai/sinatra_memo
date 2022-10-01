@@ -1,0 +1,11 @@
+@charset "UTF-8";
+html {
+    width: 100%;
+    background:whitesmoke;
+  }
+h1 {
+    display: block;
+    color: white;
+    background:#101841;
+   }
+a {color: black;}

@@ -1,0 +1,12 @@
+<link rel="stylesheet" href="/css/edit.css">
+<form method="post" action="/memo/<%= @memo_id %>">
+  <input type="text" name="title" value="<%= @title %>" autocomplete="off"><br>
+  <textarea name="text" rows="10" cols="80"><%= @text %></textarea>
+  <div class="save">
+  <button type="submit">保存</button>
+  <input name="_method" type="hidden" value="PATCH">
+  </div>
+</form>
+<div class="back">
+<button onclick="location.href = '/memo/<%= @memo_id %>' ">キャンセル</button><br>
+</div>
