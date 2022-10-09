@@ -16,12 +16,6 @@ get '/new' do
   erb :new
 end
 
-post '/new' do
-  @title = params[:title]
-  @text = params[:text]
-  erb :new
-end
-
 post '/create' do
   @title = CGI.escapeHTML(params[:title])
   @text = CGI.escapeHTML(params[:text])
