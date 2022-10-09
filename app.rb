@@ -30,7 +30,7 @@ end
 post '/memos' do
   @title = CGI.escapeHTML(params[:title])
   @text = CGI.escapeHTML(params[:text])
-  new_memo = { 'id' => SecureRandom.alphanumeric(6).to_s, 'title' => @title.to_s, 'text' => @text.to_s.gsub(/\r\n/, "\n") }
+  new_memo = { id: SecureRandom.alphanumeric(6).to_s, title: @title.to_s, text: @text.to_s.gsub(/\r\n/, "\n") }
   memos_data = json_read('memo.json')
 
   updated_files = memos_data['memos'].unshift(new_memo)
@@ -75,7 +75,7 @@ patch '/memo/:id' do
   @new_text = CGI.escapeHTML(params[:text])
 
   memos_data = json_read('memo.json')['memos']
-  new_memo = { 'id' => @memo_id, 'title' => @new_title.to_s, 'text' => @new_text.to_s }
+  new_memo = { id: @memo_id, title: @new_title.to_s, text: @new_text.to_s }
   old_memo = memos_data.select { |value| value['id'] == @memo_id }
 
   data_location = memos_data.index(old_memo[0])
