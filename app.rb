@@ -16,7 +16,7 @@ get '/new' do
   erb :new
 end
 
-post '/create' do
+post '/memos' do
   @title = CGI.escapeHTML(params[:title])
   @text = CGI.escapeHTML(params[:text])
   new_memo = { 'id' => SecureRandom.alphanumeric(6).to_s, 'title' => @title.to_s, 'text' => @text.to_s.gsub(/\r\n/, "\n") }
