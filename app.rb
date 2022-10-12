@@ -10,7 +10,7 @@ def json_read(file_name)
   JSON.parse(File.open(file_name).read)
 end
 
-def json_write(file_name,group,submission_details)
+def json_write(file_name, group, submission_details)
   File.open(file_name, 'w') do |file|
     writing_file = { group => submission_details }
     JSON.dump(writing_file, file)
@@ -34,7 +34,7 @@ post '/memos' do
   memos_data = json_read('memo.json')
 
   updated_files = memos_data['memos'].unshift(new_memo)
-  json_write('memo.json','memos',updated_files)
+  json_write('memo.json', 'memos', updated_files)
   redirect to('/', 301)
 end
 
@@ -56,7 +56,7 @@ delete '/memo/:id' do
   data_location = memos_data.index(memo_data[0])
   memos_data.delete_at(data_location)
 
-  json_write('memo.json','memos',memos_data)
+  json_write('memo.json', 'memos', memos_data)
   redirect to('/', 301)
 end
 
@@ -82,6 +82,6 @@ patch '/memo/:id' do
   memos_data.delete_at(data_location)
 
   updated_files = memos_data.unshift(new_memo)
-  json_write('memo.json','memos',updated_files)
+  json_write('memo.json', 'memos', updated_files)
   redirect to('/', 301)
 end
