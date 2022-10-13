@@ -8,7 +8,8 @@ input {
   border-width:thin
 }
 
-textarea {border-radius: 10px;
+textarea {
+  border-radius: 10px;
   margin-block: 10px;
   width: 100%;
   height: 200px;
