@@ -2,7 +2,7 @@
 
 <button onclick="location.href = '/new' ">追加</button>
 <div id="list">
-  <% @json_file.each do |hash| %>
-    <li><a href="memo/<%= hash["id"] %>"><%= hash["title"] %></a></li>
+  <% @memos.values.each do |array| %>
+    <li><a href="memo/<%= array[0] %>"><%= array[1] %></a></li>
   <% end %>
 </div>
