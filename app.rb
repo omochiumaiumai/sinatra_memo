@@ -29,15 +29,10 @@ get '/new' do
 end
 
 post '/memos' do
+  memo_id = SecureRandom.alphanumeric(6).to_s
   @title = CGI.escapeHTML(params[:title])
   @text = CGI.escapeHTML(params[:text])
-  new_memo = { id: SecureRandom.alphanumeric(6).to_s, title: @title.to_s, text: @text.to_s.gsub(/\r\n/, "\n") }
-  memos_data = json_read('memo.json')
-
-  updated_files = memos_data['memos'].unshift(new_memo)
-  json_write('memo.json', 'memos', updated_files)
-  memo_id = new_memo[:id]
-
+  
   conn = PG.connect( dbname: 'memo_app' )
   conn.exec( "INSERT INTO memos(id,title,text) VALUES ('#{memo_id}','#{@title}', '#{@text}')" )
   
