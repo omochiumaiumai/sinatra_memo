@@ -19,12 +19,8 @@ def json_write(file_name, group, submission_details)
 end
 
 get '/' do
-  json_file = json_read('memo.json')['memos']
-  @json_file = json_file
-
   conn = PG.connect( dbname: 'memo_app' )
   @memos = conn.exec( "SELECT * FROM memos" )
-  
   erb :index
 end
 
