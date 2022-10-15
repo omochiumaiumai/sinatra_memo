@@ -7,17 +7,6 @@ require 'securerandom'
 require 'cgi/escape'
 require 'pg'
 
-def json_read(file_name)
-  JSON.parse(File.open(file_name).read)
-end
-
-def json_write(file_name, group, submission_details)
-  File.open(file_name, 'w') do |file|
-    writing_file = { group => submission_details }
-    JSON.dump(writing_file, file)
-  end
-end
-
 get '/' do
   conn = PG.connect( dbname: 'memo_app' )
   @memos = conn.exec( "SELECT * FROM memos" )
@@ -41,8 +30,6 @@ end
 
 get '/memo/:id' do
   @memo_id = params[:id]
-  memos_data = json_read('memo.json')['memos']
-  memo_data = memos_data.select { |value| value['id'] == @memo_id }
 
   conn = PG.connect( dbname: 'memo_app' )
   @memos = conn.exec( "SELECT * FROM memos WHERE id = '#{@memo_id}'" )
