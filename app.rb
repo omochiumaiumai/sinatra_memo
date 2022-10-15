@@ -32,8 +32,8 @@ get '/memo/:id' do
   @memo_id = params[:id]
 
   conn = PG.connect(dbname: 'memo_app')
-  memos = conn.exec("SELECT * FROM memos WHERE id = '#{@memo_id}'")
-  memos.values.each do |array|
+  memos = conn.exec("SELECT * FROM memos WHERE id = '#{@memo_id}'").values
+  memos.each do |array|
     @title = array[1]
     @text = array[2]
   end
@@ -50,8 +50,8 @@ end
 get '/memo/:id/edit' do
   @memo_id = params[:id]
   conn = PG.connect(dbname: 'memo_app')
-  memos = conn.exec("SELECT * FROM memos WHERE id = '#{@memo_id}'")
-  memos.values.each do |array|
+  memos = conn.exec("SELECT * FROM memos WHERE id = '#{@memo_id}'").values
+  memos.each do |array|
     @title = array[1]
     @text = array[2]
   end
