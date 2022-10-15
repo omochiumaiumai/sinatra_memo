@@ -9,7 +9,7 @@ require 'pg'
 
 get '/' do
   conn = PG.connect(dbname: 'memo_app')
-  @memos = conn.exec("SELECT * FROM memos")
+  @memos = conn.exec('SELECT * FROM memos')
   erb :index
 end
 
