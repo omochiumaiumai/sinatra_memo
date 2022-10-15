@@ -5,6 +5,7 @@ require 'sinatra/reloader'
 require 'json'
 require 'securerandom'
 require 'cgi/escape'
+require 'pg'
 
 def json_read(file_name)
   JSON.parse(File.open(file_name).read)
