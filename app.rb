@@ -70,18 +70,11 @@ get '/memo/:id/edit' do
 end
 
 patch '/memo/:id' do
-  @memo_id = params[:id]
-  @new_title = CGI.escapeHTML(params[:title])
-  @new_text = CGI.escapeHTML(params[:text])
+  memo_id = params[:id]
+  new_title = CGI.escapeHTML(params[:title])
+  new_text = CGI.escapeHTML(params[:text])
 
-  memos_data = json_read('memo.json')['memos']
-  new_memo = { id: @memo_id, title: @new_title.to_s, text: @new_text.to_s.gsub(/\r\n/, "\n") }
-  old_memo = memos_data.select { |value| value['id'] == @memo_id }
-
-  data_location = memos_data.index(old_memo[0])
-  memos_data.delete_at(data_location)
-
-  updated_files = memos_data.unshift(new_memo)
-  json_write('memo.json', 'memos', updated_files)
+  conn = PG.connect( dbname: 'memo_app' )
+  conn.exec( "UPDATE memos SET title = '#{new_title}', text = '#{new_text}' WHERE id = '#{memo_id}' " )
   redirect to('/', 301)
 end
