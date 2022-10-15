@@ -36,6 +36,11 @@ post '/memos' do
 
   updated_files = memos_data['memos'].unshift(new_memo)
   json_write('memo.json', 'memos', updated_files)
+  memo_id = new_memo[:id]
+
+  conn = PG.connect( dbname: 'memo_app' )
+  conn.exec( "INSERT INTO memos(id,title,text) VALUES ('#{memo_id}','#{@title}', '#{@text}')" )
+  
   redirect to('/', 301)
 end
 
