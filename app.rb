@@ -54,13 +54,9 @@ get '/memo/:id' do
 end
 
 delete '/memo/:id' do
-  @memo_id = params[:id]
-  memos_data = json_read('memo.json')['memos']
-  memo_data = memos_data.select { |value| value['id'] == @memo_id }
-  data_location = memos_data.index(memo_data[0])
-  memos_data.delete_at(data_location)
-
-  json_write('memo.json', 'memos', memos_data)
+  memo_id = params[:id]
+  conn = PG.connect( dbname: 'memo_app' )
+  conn.exec( "DELETE FROM memos WHERE id = '#{memo_id}'" )
   redirect to('/', 301)
 end
 
