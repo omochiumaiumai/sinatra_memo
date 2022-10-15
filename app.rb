@@ -52,9 +52,12 @@ get '/memo/:id' do
   @memo_id = params[:id]
   memos_data = json_read('memo.json')['memos']
   memo_data = memos_data.select { |value| value['id'] == @memo_id }
-  memo_data.each do |hash|
-    @title = hash['title']
-    @text = hash['text']
+
+  conn = PG.connect( dbname: 'memo_app' )
+  @memos = conn.exec( "SELECT * FROM memos WHERE id = '#{@memo_id}'" )
+  @memos.values.each do |array|
+    @title = array[1]
+    @text = array[2]
   end
   erb :show
 end
