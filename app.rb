@@ -7,6 +7,23 @@ require 'securerandom'
 require 'cgi/escape'
 require 'pg'
 
+def execute(sql, params)
+  conn = PG.connect(dbname: 'memo_app')
+  conn.exec_params(sql, params)
+end
+
+def memo_create(id,title,text)
+  sql = "INSERT INTO memos (id, title, text) VALUES ($1, $2, $3)"
+  params = [id, title, text]
+  execute(sql, params)
+end
+
+def memo_edit(id,title,text)
+  sql = "UPDATE memos SET title = $1, text = $2 WHERE id = $3"
+  params = [title, text, id]
+  execute(sql, params)
+end
+
 get '/' do
   conn = PG.connect(dbname: 'memo_app')
   @memos = conn.exec('SELECT * FROM memos')
