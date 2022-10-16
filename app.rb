@@ -39,8 +39,7 @@ post '/memos' do
   @title = CGI.escapeHTML(params[:title])
   @text = CGI.escapeHTML(params[:text])
 
-  conn = PG.connect(dbname: 'memo_app')
-  conn.exec("INSERT INTO memos(id,title,text) VALUES ('#{memo_id}','#{@title}', '#{@text}')")
+  memo_create(memo_id,@title,@text)
 
   redirect to('/', 301)
 end
@@ -80,7 +79,7 @@ patch '/memo/:id' do
   new_title = CGI.escapeHTML(params[:title])
   new_text = CGI.escapeHTML(params[:text])
 
-  conn = PG.connect(dbname: 'memo_app')
-  conn.exec("UPDATE memos SET title = '#{new_title}', text = '#{new_text}' WHERE id = '#{memo_id}' ")
+  memo_edit(memo_id,new_title,new_text)
+
   redirect to('/', 301)
 end
