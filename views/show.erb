@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/show.css">
 
 <h2><%= @title %></h2>
-<%= @text.gsub(/\n/,"<br>") %>
+<%= @text.gsub(/\r\n|\n|\r/,"<br>") %>
 <br>
 <div class="edit">
   <button onclick="location.href = '/memo/<%= @memo_id %>/edit' ">変更</button>
