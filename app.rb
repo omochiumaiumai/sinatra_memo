@@ -12,7 +12,7 @@ def db_select
 end
 
 def execute(sql, params)
-  conn = PG.connect(dbname: 'memo_app')
+  conn = db_select
   conn.exec_params(sql, params)
 end
 
@@ -29,7 +29,7 @@ def memo_edit(id, title, text)
 end
 
 get '/' do
-  conn = PG.connect(dbname: 'memo_app')
+  conn = db_select
   @memos = conn.exec('SELECT * FROM memos')
   erb :index
 end
@@ -50,8 +50,7 @@ end
 
 get '/memo/:id' do
   @memo_id = params[:id]
-
-  conn = PG.connect(dbname: 'memo_app')
+  conn = db_select
   memos = conn.exec("SELECT * FROM memos WHERE id = '#{@memo_id}'").values
   memos.each do |array|
     @title = array[1]
@@ -62,14 +61,14 @@ end
 
 delete '/memo/:id' do
   memo_id = params[:id]
-  conn = PG.connect(dbname: 'memo_app')
+  conn = db_select
   conn.exec("DELETE FROM memos WHERE id = '#{memo_id}'")
   redirect to('/', 301)
 end
 
 get '/memo/:id/edit' do
   @memo_id = params[:id]
-  conn = PG.connect(dbname: 'memo_app')
+  conn = db_select
   memos = conn.exec("SELECT * FROM memos WHERE id = '#{@memo_id}'").values
   memos.each do |array|
     @title = array[1]
