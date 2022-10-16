@@ -12,13 +12,13 @@ def execute(sql, params)
   conn.exec_params(sql, params)
 end
 
-def memo_create(id,title,text)
+def memo_create(id, title, text)
   sql = 'INSERT INTO memos (id, title, text) VALUES ($1, $2, $3)'
   params = [id, title, text]
   execute(sql, params)
 end
 
-def memo_edit(id,title,text)
+def memo_edit(id, title, text)
   sql = 'UPDATE memos SET title = $1, text = $2 WHERE id = $3'
   params = [title, text, id]
   execute(sql, params)
@@ -39,7 +39,7 @@ post '/memos' do
   @title = CGI.escapeHTML(params[:title])
   @text = CGI.escapeHTML(params[:text])
 
-  memo_create(memo_id,@title,@text)
+  memo_create(memo_id, @title, @text)
 
   redirect to('/', 301)
 end
@@ -79,7 +79,7 @@ patch '/memo/:id' do
   new_title = CGI.escapeHTML(params[:title])
   new_text = CGI.escapeHTML(params[:text])
 
-  memo_edit(memo_id,new_title,new_text)
+  memo_edit(memo_id, new_title, new_text)
 
   redirect to('/', 301)
 end
