@@ -13,13 +13,13 @@ def execute(sql, params)
 end
 
 def memo_create(id,title,text)
-  sql = "INSERT INTO memos (id, title, text) VALUES ($1, $2, $3)"
+  sql = 'INSERT INTO memos (id, title, text) VALUES ($1, $2, $3)'
   params = [id, title, text]
   execute(sql, params)
 end
 
 def memo_edit(id,title,text)
-  sql = "UPDATE memos SET title = $1, text = $2 WHERE id = $3"
+  sql = 'UPDATE memos SET title = $1, text = $2 WHERE id = $3'
   params = [title, text, id]
   execute(sql, params)
 end
