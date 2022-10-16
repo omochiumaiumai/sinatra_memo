@@ -8,7 +8,7 @@ require 'cgi/escape'
 require 'pg'
 
 def db_select
-  PG.connect(dbname:'memo_app')
+  PG.connect(dbname: 'memo_app')
 end
 
 def execute(sql, params)
