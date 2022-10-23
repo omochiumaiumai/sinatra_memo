@@ -49,13 +49,10 @@ post '/memos' do
 end
 
 get '/memo/:id' do
-  @memo_id = params[:id]
+  memo_id = params[:id]
   conn = db_select
-  memos = conn.exec("SELECT * FROM memos WHERE id = '#{@memo_id}'").values
-  memos.each do |array|
-    @title = array[1]
-    @text = array[2]
-  end
+  memos = conn.exec("SELECT * FROM memos WHERE id = '#{memo_id}'").values
+  @memo = memos.first
   erb :show
 end
 
@@ -67,13 +64,10 @@ delete '/memo/:id' do
 end
 
 get '/memo/:id/edit' do
-  @memo_id = params[:id]
+  memo_id = params[:id]
   conn = db_select
-  memos = conn.exec("SELECT * FROM memos WHERE id = '#{@memo_id}'").values
-  memos.each do |array|
-    @title = array[1]
-    @text = array[2]
-  end
+  memos = conn.exec("SELECT * FROM memos WHERE id = '#{memo_id}'").values
+  @memo = memos.first
   erb :edit
 end
 
