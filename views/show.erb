@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="/css/show.css">
 
-<h2><%= @title %></h2>
-<%= @text.gsub(/\r\n|\n|\r/,"<br>") %>
+<h2><%= @memo[1] %></h2>
+<%= @memo[2].gsub(/\r\n|\n|\r/,"<br>") %>
 <br>
 <div class="edit">
-  <button onclick="location.href = '/memo/<%= @memo_id %>/edit' ">変更</button>
+  <button onclick="location.href = '/memo/<%= @memo[0] %>/edit' ">変更</button>
   <form action="/memo/<%= @memo_id %>" method="POST">
 </div>
 <div class="delete">
