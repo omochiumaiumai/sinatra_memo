@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+#list {
+  display: inline-block;
+  list-style: none;
+}
+
+button {
+  float: right;
+  width: 100px;
+  height: 30px;
+  background-color: #101841;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 10px;
+  border: none;
+  color: white;
+}

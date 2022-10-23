@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="/css/show.css">
+
+<h2><%= @title %></h2>
+<%= @text.gsub(/\n/,"<br>") %>
+<br>
+<div class="edit">
+  <button onclick="location.href = '/memo/<%= @memo_id %>/edit' ">変更</button>
+  <form action="/memo/<%= @memo_id %>" method="POST">
+</div>
+<div class="delete">
+  <button type="submit">削除</button>
+  <input type="hidden" name="_method" value="DELETE">
+  </form>
+</div>
