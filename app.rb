@@ -28,6 +28,12 @@ def memo_edit(id, title, text)
   execute(sql, params)
 end
 
+def memo_select(id)
+  sql = 'SELECT * FROM memos WHERE id = $1'
+  params = [id]
+  execute(sql, params)
+end
+
 get '/' do
   conn = db_select
   @memos = conn.exec('SELECT * FROM memos')
@@ -50,9 +56,7 @@ end
 
 get '/memo/:id' do
   memo_id = params[:id]
-  conn = db_select
-  memos = conn.exec("SELECT * FROM memos WHERE id = '#{memo_id}'").values
-  @memo = memos.first
+  @memo = memo_select(memo_id).values.first
   erb :show
 end
 
@@ -65,9 +69,7 @@ end
 
 get '/memo/:id/edit' do
   memo_id = params[:id]
-  conn = db_select
-  memos = conn.exec("SELECT * FROM memos WHERE id = '#{memo_id}'").values
-  @memo = memos.first
+  @memo = memo_select(memo_id).values.first
   erb :edit
 end
 
