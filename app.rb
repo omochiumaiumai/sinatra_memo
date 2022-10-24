@@ -20,9 +20,7 @@ def memo_edit(id, title, text)
 end
 
 def memo_select(id)
-  sql = 'SELECT * FROM memos WHERE id = $1'
-  params = [id]
-  execute(sql, params)
+  connection.exec('SELECT * FROM memos WHERE id = $1', [id])
 end
 
 def memo_all
@@ -30,9 +28,7 @@ def memo_all
 end
 
 def memo_delete(id)
-  sql = 'DELETE FROM memos WHERE id = $1'
-  params = [id]
-  execute(sql, params)
+  connection.exec('DELETE FROM memos WHERE id = $1', [id])
 end
 
 get '/' do
