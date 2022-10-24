@@ -8,7 +8,7 @@ require 'cgi/escape'
 require 'pg'
 
 def connection
-@connection ||= PG.connect(dbname: 'memo_app')
+  @connection ||= PG.connect(dbname: 'memo_app')
 end
 
 def memo_create(id, title, text)
@@ -51,29 +51,25 @@ post '/memos' do
 end
 
 get '/memo/:id' do
-  memo_id = params[:id]
-  @memo = memo_select(memo_id).values.first
+  @memo = memo_select(params[:id]).values.first
   erb :show
 end
 
 delete '/memo/:id' do
-  memo_id = params[:id]
-  memo_delete(memo_id)
+  memo_delete(params[:id])
   redirect to('/', 301)
 end
 
 get '/memo/:id/edit' do
-  memo_id = params[:id]
-  @memo = memo_select(memo_id).values.first
+  @memo = memo_select(params[:id]).values.first
   erb :edit
 end
 
 patch '/memo/:id' do
-  memo_id = params[:id]
   new_title = CGI.escapeHTML(params[:title])
   new_text = CGI.escapeHTML(params[:text])
 
-  memo_edit(memo_id, new_title, new_text)
+  memo_edit(params[:id], new_title, new_text)
 
   redirect to('/', 301)
 end
