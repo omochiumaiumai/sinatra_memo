@@ -50,7 +50,7 @@ post '/memos' do
   redirect to('/', 301)
 end
 
-get '/memo/:id' do #共通化
+get '/memo/:id' do
   memo_id = params[:id]
   @memo = memo_select(memo_id).values.first
   erb :show
@@ -62,7 +62,7 @@ delete '/memo/:id' do
   redirect to('/', 301)
 end
 
-get '/memo/:id/edit' do #共通化
+get '/memo/:id/edit' do
   memo_id = params[:id]
   @memo = memo_select(memo_id).values.first
   erb :edit
