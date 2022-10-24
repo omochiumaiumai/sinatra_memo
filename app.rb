@@ -34,6 +34,12 @@ def memo_select(id)
   execute(sql, params)
 end
 
+def memo_delete(id)
+  sql = 'DELETE FROM memos WHERE id = $1'
+  params = [id]
+  execute(sql, params)
+end
+
 get '/' do
   conn = db_select
   @memos = conn.exec('SELECT * FROM memos')
@@ -62,8 +68,7 @@ end
 
 delete '/memo/:id' do
   memo_id = params[:id]
-  conn = db_select
-  conn.exec("DELETE FROM memos WHERE id = '#{memo_id}'")
+  memo_delete(memo_id)
   redirect to('/', 301)
 end
 
