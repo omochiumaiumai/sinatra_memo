@@ -7,12 +7,12 @@ require 'securerandom'
 require 'cgi/escape'
 require 'pg'
 
-def db_select
-  PG.connect(dbname: 'memo_app')
+def connection
+@connection ||= PG.connect(dbname: 'memo_app')
 end
 
 def execute(sql, params)
-  conn = db_select
+  conn = connection
   conn.exec_params(sql, params)
 end
 
@@ -34,6 +34,10 @@ def memo_select(id)
   execute(sql, params)
 end
 
+def memo_all
+  connection.exec('SELECT * FROM memos')
+end
+
 def memo_delete(id)
   sql = 'DELETE FROM memos WHERE id = $1'
   params = [id]
@@ -41,8 +45,7 @@ def memo_delete(id)
 end
 
 get '/' do
-  conn = db_select
-  @memos = conn.exec('SELECT * FROM memos')
+  @memos = memo_all
   erb :index
 end
 
@@ -60,7 +63,7 @@ post '/memos' do
   redirect to('/', 301)
 end
 
-get '/memo/:id' do
+get '/memo/:id' do #共通化
   memo_id = params[:id]
   @memo = memo_select(memo_id).values.first
   erb :show
@@ -72,7 +75,7 @@ delete '/memo/:id' do
   redirect to('/', 301)
 end
 
-get '/memo/:id/edit' do
+get '/memo/:id/edit' do #共通化
   memo_id = params[:id]
   @memo = memo_select(memo_id).values.first
   erb :edit
